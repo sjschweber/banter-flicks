@@ -13,7 +13,7 @@ collections:
     fields:
       - { name: slug, label: Path }
       - { name: date, label: Date, widget: datetime }
-      - { name: title, label: Title }
-      - { name: author, label: Author}
-      - { name: genre, label: Genre}
+      - { name: title, label: Title, widget: "text" }
+      - { name: author, label: Author, widget: "text"}
+      - { name: genre, label: Genre, widget: "text"}
       - { name: body, label: Body, widget: markdown }
