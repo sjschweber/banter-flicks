@@ -1,8 +1,8 @@
 ---
 slug: /third
 date: 2020-05-24T22:08:44.024Z
-title: third netlify post
-author: sam
-genre: action
+title: "third netlify post"
+author: "sam"
+genre: "action"
 ---
 Hello from third netlify post!
