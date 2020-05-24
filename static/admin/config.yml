@@ -15,5 +15,5 @@ collections:
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
       - { name: author, label: Author}
-      - { genre: genre, label: Genre}
+      - { name: genre, label: Genre}
       - { name: body, label: Body, widget: markdown }
