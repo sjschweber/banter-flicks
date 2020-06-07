@@ -1,6 +1,8 @@
 import React from "react"
 import Header from "../components/header"
 import Layout from "../components/layout"
+import Paper from '@material-ui/core/Paper';
+
 import { graphql } from "gatsby"
 
 export default function Template({
@@ -10,17 +12,20 @@ export default function Template({
   const { frontmatter, html } = markdownRemark
   return (
     <Layout>
-    <div className="blog-post-container">
+      <div>
       <div className="blog-post">
         <h1 style={{color: 'blue'}}>{frontmatter.title}</h1>
         <h3>{frontmatter.date}</h3>
         <h5>{frontmatter.author}</h5>
+        <Paper elevation={10}>
         <div
           className="blog-post-content"
           style={{"text-align": 'center'}}
           dangerouslySetInnerHTML={{ __html: html }}
         />
+        </Paper>
       </div>
+
     </div>
     </Layout>
   )

@@ -19,6 +19,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
+import { useSlopeCardMediaStyles } from '@mui-treasury/styles/cardMedia/slope';
 
 const animation = 'fade';
 const timeout = 500;
@@ -138,19 +139,20 @@ function CarouselItem({title, active, displayed, img, slug}) {
   const styles = useStyles();
   const mediaStyles = useCoverCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
+  const slopeStyles = useSlopeCardMediaStyles();
 
   return(
     displayed ?
     (<div>
       <Fade in={active} timeout={timeout}>
-        <Card className={styles.root}>
+        <Card className={styles.root} classes={shadowStyles}>
 
-          <CardActionArea>
-            <CardMedia className={styles.media} image={img}/>
+
+            <CardMedia  className={styles.media} image={img}/>
             <CardContent>
               {title}
             </CardContent>
-          </CardActionArea>
+      
 
           <CardActions>
         <Button size="small" color="primary">
