@@ -2,25 +2,52 @@ import React from "react"
 import Header from "../components/header"
 import Layout from "../components/layout"
 import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 import { graphql } from "gatsby"
+import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
 }) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark
+  const thumb = '../public'+frontmatter.thumbnail
   return (
     <Layout>
       <div>
       <div className="blog-post">
-        <h1 style={{color: 'blue'}}>{frontmatter.title}</h1>
-        <h3>{frontmatter.date}</h3>
-        <h5>{frontmatter.author}</h5>
-        <Paper elevation={10}>
+
+
+
+
+
+
+
+
+        <div className="header"
+          style={{'justify-content':'space-between', display: 'flex', 'flex-direction': 'column', 'align-content': 'center'}}>
+          <Typography variant='caption'>
+            {frontmatter.date}
+          </Typography>
+          <Typography>
+            {frontmatter.author}
+          </Typography>
+
+          <Typography variant='h1'>
+            {frontmatter.title}
+          </Typography>
+
+        </div>
+
+        <Paper elevation={10} style={{'margin-top': '40px'}}>
+          <CardMedia style={{height: '40vh'}} image={data.markdownRemark.frontmatter.thumbnail}/>
         <div
           className="blog-post-content"
-          style={{"text-align": 'center'}}
+          style={{"text-align": 'left', padding: '25px'}}
           dangerouslySetInnerHTML={{ __html: html }}
         />
         </Paper>
@@ -41,6 +68,7 @@ export const pageQuery = graphql`
         title
         genre
         author
+        thumbnail
       }
     }
   }

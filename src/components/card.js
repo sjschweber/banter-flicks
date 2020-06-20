@@ -5,36 +5,44 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import cx from 'clsx';
+import CardMedia from '@material-ui/core/CardMedia';
 
 import { Link, StaticQuery, useStaticQuery, graphql} from "gatsby"
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: '50vw',
-    minHeight: '20vh',
-    padding: '15px',
-    margin: '10px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
+import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
+import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
 
-const Post = ({data, classes, page, showall}) => (
+const useStyles = makeStyles(() => ({
+  root: {
+    width: '50vw',
+    margin: 'auto',
+    boxShadow: 'none',
+    borderRadius: 0,
+  },
+  content: {
+    padding: 24,
+  },
+  cta: {
+    marginTop: 24,
+    textTransform: 'initial',
+  },
+}));
+
+
+
+const Post = ({data, classes, mediaStyles, textCardContentStyles, shadowStyles, page, showall}) => (
   data.allMarkdownRemark.edges
   .filter(item => item.node.frontmatter.genre===page || showall==='true')
   .map(item =>{
    return(
-    <Card className={classes.root}>
-      <CardContent>
+    <Card className={cx(classes.root, shadowStyles.root)}>
+    <CardMedia
+      classes={mediaStyles}
+      image={item.node.frontmatter.thumbnail}
+    />
+      <CardContent className={classes.content}>
         <Typography className={classes.bullet} color="textSecondary">
           {item.node.frontmatter.author}
         </Typography>
@@ -59,6 +67,9 @@ const Post = ({data, classes, page, showall}) => (
 
 export default function SimpleCard (props){
     const classes=useStyles();
+    const mediaStyles = useWideCardMediaStyles();
+    const textCardContentStyles = useN01TextInfoContentStyles();
+    const shadowStyles = useBouncyShadowStyles();
     const bull = <span className={classes.bullet}>•</span>;
 
     console.log(props.page)
@@ -77,13 +88,14 @@ export default function SimpleCard (props){
                   author
                   genre
                   slug
+                  thumbnail
               }
             }
           }
         }
       }
     `}
-    render={data => <Post data={data} classes={classes} page={props.page} showall={props.showall} />}
+    render={data => <Post data={data} mediaStyles={mediaStyles} textCardContentStyles={textCardContentStyles} shadowStyles={shadowStyles} classes={classes} page={props.page} showall={props.showall} />}
 
   />
 

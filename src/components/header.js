@@ -2,6 +2,7 @@ import { Link, StaticQuery, graphql} from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 import TransitionLink from "gatsby-plugin-transition-link"
+import AniLink from "gatsby-plugin-transition-link/AniLink";
 import {Helmet} from 'react-helmet'
 
 const Header = ({ siteTitle, menuLinks }) => (

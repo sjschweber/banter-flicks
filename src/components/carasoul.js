@@ -6,6 +6,8 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { Link, useStaticQuery, graphql} from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink";
+
 
 
 import cx from 'clsx';
@@ -17,40 +19,56 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
+import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 import { useSlopeCardMediaStyles } from '@mui-treasury/styles/cardMedia/slope';
 
 const animation = 'fade';
 const timeout = 500;
 
+// const useStyles = makeStyles(() => ({
+//   root: {
+//     //maxWidth: 304,
+//     margin: 'auto',
+//     borderRadius: 0,
+//     position: 'relative',
+//     width: '45vw'
+//
+//   },
+//   content: {
+//     padding: 24,
+//   },
+//   cta: {
+//     display: 'block',
+//     textAlign: 'center',
+//     color: 'black',
+//     letterSpacing: '3px',
+//     fontWeight: 200,
+//     fontSize: 12,
+//   },
+//   media: {
+//     height: '40vh',
+//     width: '100%'
+//   },
+//   title: {
+//     color: 'black',
+//     letterSpacing: '2px',
+//   },
+// }));
+
 const useStyles = makeStyles(() => ({
   root: {
-    //maxWidth: 304,
+    width: '50vw',
     margin: 'auto',
+    boxShadow: 'none',
     borderRadius: 0,
-    position: 'relative',
-    width: '45vw'
-
   },
   content: {
     padding: 24,
   },
   cta: {
-    display: 'block',
-    textAlign: 'center',
-    color: 'black',
-    letterSpacing: '3px',
-    fontWeight: 200,
-    fontSize: 12,
-  },
-  media: {
-    height: '40vh',
-    width: '100%'
-  },
-  title: {
-    color: 'black',
-    letterSpacing: '2px',
+    marginTop: 24,
+    textTransform: 'initial',
   },
 }));
 
@@ -79,7 +97,7 @@ export function Carousel () {
   const [displayed, setDisplayed] = useState(0);
   const [timer1, setTimer1] = useState(null);
   const [interval1, setInterval1] = useState(4000);
-  const children = data.allMarkdownRemark.edges
+  const children = 3
 
 
   function start(){
@@ -104,7 +122,7 @@ export function Carousel () {
 
     setTimer1(setInterval(()=>{
 
-      const next = active + 1 > children.length - 1 ? 0: active + 1;
+      const next = active + 1 > children - 1 ? 0: active + 1;
 
       setActive(next)
       setDisplayed(active)
@@ -122,22 +140,29 @@ export function Carousel () {
   return(
 
 
-    data.allMarkdownRemark.edges.map((item, index) => {
+    data.allMarkdownRemark.edges.sort((a, b) => b.node.frontmatter.date - a.node.frontmatter.date).slice(0, 3).map((item, index) => {
+      console.log(item.node.frontmatter.thumbnail)
       return(
-          <CarouselItem key={index} slug={item.node.frontmatter.slug} active={index === active ? true: false} displayed={index === displayed ? true: false} img={item.node.frontmatter.thumbnail} title={item.node.frontmatter.title}/>
+          <CarouselItem key={index}
+            slug={item.node.frontmatter.slug}
+            active={index === active ? true: false}
+            displayed={index === displayed ? true: false}
+            img={item.node.frontmatter.thumbnail}
+            title={item.node.frontmatter.title}
+          />
       )
 
     })
 
-  )
 
+  )
 }
 
 
 function CarouselItem({title, active, displayed, img, slug}) {
 
   const styles = useStyles();
-  const mediaStyles = useCoverCardMediaStyles();
+  const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
   const slopeStyles = useSlopeCardMediaStyles();
 
@@ -145,25 +170,24 @@ function CarouselItem({title, active, displayed, img, slug}) {
     displayed ?
     (<div>
       <Fade in={active} timeout={timeout}>
-        <Card className={styles.root} classes={shadowStyles}>
+        <Card className={cx(styles.root, shadowStyles.root)}>
 
 
-            <CardMedia  className={styles.media} image={img}/>
-            <CardContent>
-              {title}
+            <CardMedia  classes={mediaStyles} image={img}/>
+            <CardContent className={styles.content}>
+              <Typography variant="h5" component="h2">
+                {title}
+              </Typography>
             </CardContent>
-      
+
 
           <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Link to={slug} style={{textDecoration: 'none'}}>
-        <Button size="small" color="primary">
-          Read More
-        </Button>
-        </Link>
-      </CardActions>
+            <AniLink paintDrip to={slug} hex='#457b9d' duration={.75} style={{textDecoration: 'none'}}>
+            <Button size="small">
+              Read More
+            </Button>
+            </AniLink>
+          </CardActions>
         </Card>
       </Fade>
     </div>) : null
