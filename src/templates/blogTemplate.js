@@ -18,42 +18,35 @@ export default function Template({
   const thumb = '../public'+frontmatter.thumbnail
   return (
     <Layout>
-      <div>
-      <div className="blog-post">
+      <div style={{display: 'flex', 'flex-direction': 'column', 'justify-content': 'center'}}>
 
+        <div style={{position: 'relative', 'justify-content': 'center'}}>
 
+          <div style={{position:'absolute', bottom: '0%', 'background-color': '#ffffff', opacity: '0.6'}}>
+            <Typography variant='caption'>
+              {frontmatter.date}
+            </Typography>
+            <Typography>
+              {frontmatter.author}
+            </Typography>
 
+            <Typography variant='h1'>
+              {frontmatter.title}
+            </Typography>
+          </div>
 
-
-
-
-
-        <div className="header"
-          style={{'justify-content':'space-between', display: 'flex', 'flex-direction': 'column', 'align-content': 'center'}}>
-          <Typography variant='caption'>
-            {frontmatter.date}
-          </Typography>
-          <Typography>
-            {frontmatter.author}
-          </Typography>
-
-          <Typography variant='h1'>
-            {frontmatter.title}
-          </Typography>
+          <CardMedia style={{height: '40vh', width: '50vw', 'align-self': 'center'}} image={data.markdownRemark.frontmatter.thumbnail}/>
 
         </div>
-
-        <Paper elevation={10} style={{'margin-top': '40px'}}>
-          <CardMedia style={{height: '40vh'}} image={data.markdownRemark.frontmatter.thumbnail}/>
         <div
           className="blog-post-content"
           style={{"text-align": 'left', padding: '25px'}}
           dangerouslySetInnerHTML={{ __html: html }}
         />
-        </Paper>
+
+
       </div>
 
-    </div>
     </Layout>
   )
 }

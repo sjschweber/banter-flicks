@@ -37,7 +37,7 @@ const Post = ({data, classes, mediaStyles, textCardContentStyles, shadowStyles, 
   .filter(item => item.node.frontmatter.genre===page || showall==='true')
   .map(item =>{
    return(
-    <Card className={cx(classes.root, shadowStyles.root)}>
+    <Card style={{'margin-bottom': 25, 'margin-top': 25}} className={cx(classes.root, shadowStyles.root)}>
     <CardMedia
       classes={mediaStyles}
       image={item.node.frontmatter.thumbnail}

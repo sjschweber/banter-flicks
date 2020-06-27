@@ -99,6 +99,21 @@ export function Carousel () {
   const [interval1, setInterval1] = useState(4000);
   const children = 3
 
+  const carouselItems = data.allMarkdownRemark.edges.sort((a, b) => b.node.frontmatter.date - a.node.frontmatter.date).slice(0, 3).map((item, index) => {
+
+    return(
+
+        <CarouselItem key={index}
+          slug={item.node.frontmatter.slug}
+          active={index === active ? true: false}
+          displayed={index === displayed ? true: false}
+          img={item.node.frontmatter.thumbnail}
+          title={item.node.frontmatter.title}
+        />
+
+    )
+
+  })
 
   function start(){
 
@@ -138,21 +153,13 @@ export function Carousel () {
   }, [active, displayed])
 
   return(
+    <div>
 
 
-    data.allMarkdownRemark.edges.sort((a, b) => b.node.frontmatter.date - a.node.frontmatter.date).slice(0, 3).map((item, index) => {
-      console.log(item.node.frontmatter.thumbnail)
-      return(
-          <CarouselItem key={index}
-            slug={item.node.frontmatter.slug}
-            active={index === active ? true: false}
-            displayed={index === displayed ? true: false}
-            img={item.node.frontmatter.thumbnail}
-            title={item.node.frontmatter.title}
-          />
-      )
+      {carouselItems}
 
-    })
+    </div>
+
 
 
   )
@@ -164,12 +171,15 @@ function CarouselItem({title, active, displayed, img, slug}) {
   const styles = useStyles();
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
-  const slopeStyles = useSlopeCardMediaStyles();
 
   return(
     displayed ?
-    (<div>
+    (<div style={{position:'relative'}}>
+      <IconButton style={{position:'absolute', top: '50%', left: '20%'}} aria-label="previous">
+        <NavigateBeforeIcon/>
+      </IconButton>
       <Fade in={active} timeout={timeout}>
+
         <Card className={cx(styles.root, shadowStyles.root)}>
 
 
@@ -190,6 +200,9 @@ function CarouselItem({title, active, displayed, img, slug}) {
           </CardActions>
         </Card>
       </Fade>
+      <IconButton style={{position:'absolute', top: '50%', right: '20%'}} aria-label="next">
+        <NavigateNextIcon/>
+      </IconButton>
     </div>) : null
 
   )

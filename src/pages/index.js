@@ -9,6 +9,9 @@ import Card from "../components/card"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import ScrollList from "../components/scroll-list"
+import {FaceBookShareButton, FacebookIcon} from 'react-share';
+import Typography from '@material-ui/core/Typography';
+
 
 import SEO from "../components/seo"
 
@@ -18,15 +21,21 @@ import SEO from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
-    <h1>Newest Posts</h1>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <div style={{width: '100%', margin: '10px', padding: '15px', 'min-height': '20vh'}}>
-        <Carousel/>
-      </div>
-      <Card showall='true'/>
 
+    <SEO title="Home" />
+    <h1 style={{'text-align': 'center'}}>Everyone's A Critic</h1>
+    <h3 style={{'text-align': 'center'}}>Home</h3>
+    <div style={{position: 'fixed', bottom: '5%'}}>
+      <FacebookIcon round/>
     </div>
+
+    <Carousel/>
+    <Card showall='true'/>
+
+
+
+
+
   </Layout>
 )
 

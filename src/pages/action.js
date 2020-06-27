@@ -11,11 +11,11 @@ import SEO from "../components/seo"
 const Action = () => (
   <Layout>
     <SEO title="Action" />
-    <h1>Newest Posts</h1>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+    <h1 style={{'text-align': 'center'}}>Everyone's A Critic</h1>
+
       <Card page="action" showall="false"/>
 
-    </div>
+
   </Layout>
 
 
