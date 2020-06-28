@@ -20,9 +20,9 @@ export default function Template({
     <Layout>
       <div style={{display: 'flex', 'flex-direction': 'column', 'justify-content': 'center'}}>
 
-        <div style={{position: 'relative', 'justify-content': 'center'}}>
+        <div style={{'justify-content': 'center', 'background-repeat': 'no-repeat', 'background-size': '50% 100%', 'background-image': `url(${data.markdownRemark.frontmatter.thumbnail})`}}>
 
-          <div style={{position:'absolute', bottom: '0%', 'background-color': '#ffffff', opacity: '0.6'}}>
+          <div style={{'background-color': '#ffffff', opacity: '0.5'}}>
             <Typography variant='caption'>
               {frontmatter.date}
             </Typography>
@@ -35,9 +35,9 @@ export default function Template({
             </Typography>
           </div>
 
-          <CardMedia style={{height: '40vh', width: '50vw', 'align-self': 'center'}} image={data.markdownRemark.frontmatter.thumbnail}/>
 
         </div>
+
         <div
           className="blog-post-content"
           style={{"text-align": 'left', padding: '25px'}}
