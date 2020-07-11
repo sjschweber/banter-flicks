@@ -20,29 +20,35 @@ export default function Template({
     <Layout>
       <div style={{display: 'flex', 'flex-direction': 'column', 'justify-content': 'center'}}>
 
-        <div style={{'justify-content': 'center', 'background-repeat': 'no-repeat', 'background-size': '50% 100%', 'background-image': `url(${data.markdownRemark.frontmatter.thumbnail})`}}>
+      <div style={{'align-self': 'center'}}>
+        <Typography variant='caption'>
+          {frontmatter.date}
+        </Typography>
+        <Typography>
+          {frontmatter.author}
+        </Typography>
 
-          <div style={{'background-color': '#ffffff', opacity: '0.5'}}>
-            <Typography variant='caption'>
-              {frontmatter.date}
-            </Typography>
-            <Typography>
-              {frontmatter.author}
-            </Typography>
+        <Typography variant='h1'>
+          {frontmatter.title}
+        </Typography>
 
-            <Typography variant='h1'>
-              {frontmatter.title}
-            </Typography>
-          </div>
+      </div>
 
-
+        <div style={{'align-self': 'center'}}>
+          <img src={data.markdownRemark.frontmatter.thumbnail}/>
         </div>
 
-        <div
-          className="blog-post-content"
-          style={{"text-align": 'left', padding: '25px'}}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+
+
+
+
+          <div
+            className="blog-post-content"
+            style={{"text-align": 'left', padding: '25px', 'align-self': 'center', width: '50vw', 'min-width': '400px'}}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+
+
 
 
       </div>
